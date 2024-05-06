@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/devices/layout.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/devices/layout.jsx", "src/app/devices/userDevice/page.jsx", "src/app/devices/userDevice/manual.jsx", "src/app/devices/userDevice/timer.tsx"],
   "exclude": ["node_modules"]
 }

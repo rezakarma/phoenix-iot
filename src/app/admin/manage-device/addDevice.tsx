@@ -43,6 +43,10 @@ const AddDevice = () => {
     resolver: zodResolver(deviceSchema),
     defaultValues: {
       identifier: "",
+      switch1Name: "",
+      switch2Name: "",
+      switch3Name: "",
+      switch4Name: "",
     },
   });
 
@@ -77,6 +81,58 @@ const AddDevice = () => {
                   <FormLabel>identifier</FormLabel>
                   <FormControl>
                     <Input placeholder="identifier" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="switch1Name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>switch1 Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="switch1Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="switch2Name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>switch2 Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="switch2Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="switch3Name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>switch3 Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="switch3Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="switch4Name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>switch4 Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="switch4Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -1,38 +1,21 @@
 "use server";
 import GetToken from "@/app/auth/getToken";
 interface User {
-  data: { username: string; password: string };
   id: string;
-  apiPath: string;
-  type: string;
 }
 
-interface Device {
-  data: {
-    id: string;
-    identifier: string;
-    switch1Name: string;
-    switch2Name: string;
-    switch3Name: string;
-    switch4Name: string;
-  };
-  id: string;
-  apiPath: string;
-  type: string;
-}
 
-const UpdateUserOrDeviceAction = async (value: User | Device) => {
+const ToggleUserActivity = async (value: User) => {
   const userToken = await GetToken();
   console.log("token: ", userToken);
   const result = await fetch(
-    `${process.env.API_ENDPOINT}/${value.apiPath}${value.id}`,
+    `${process.env.API_ENDPOINT}/users/toggle-user-is-active/${value.id}`,
     {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${userToken}`,
         "Content-type": "application/json",
       },
-      body: JSON.stringify(value.data),
     }
   );
   console.log(result);
@@ -53,18 +36,14 @@ const UpdateUserOrDeviceAction = async (value: User | Device) => {
   }
   if (result.ok) {
     if (result.status === 204) {
-      return { status: "success", message: `${value.type} با موفقیت بروز شد` };
+      return { status: "success", message: `کاربر با موفقیت بروز شد` };
     }
     const response = await result.json();
     if (response.message) {
       return { status: "error", message: response.message as string };
     }
-    return {
-      status: "error",
-      message: "1خطایی رخ داده لطفا در زمانی دیگر مجددا تلاش کنید",
-    };
+    return { status: "success", message: `کاربر با موفقیت بروز شد` };
   } else {
-    console.log('here : ',result)
     return {
       status: "error",
       message: "خطایی رخ داده لطفا در زمانی دیگر مجددا تلاش کنید",
@@ -72,4 +51,4 @@ const UpdateUserOrDeviceAction = async (value: User | Device) => {
   }
 };
 
-export default UpdateUserOrDeviceAction;
+export default ToggleUserActivity;

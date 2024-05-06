@@ -28,6 +28,7 @@ import { ArrowUpDown } from "lucide-react";
 import DeleteUserOrDeviceAction from "../../adminActions/deleteUserOrDevice";
 import UpdateUserForm from "@/components/admin/forms/updateUserForm";
 import UpdateUserOrDeviceAction from "../../adminActions/updateUserOrDevice";
+import ToggleUserActivity from "../../adminActions/toggleUserActivity";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -41,6 +42,10 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "id",
     header: "شناسه",
+  },
+  {
+    accessorKey: "isActive",
+    header: "فعال",
   },
 
   {
@@ -80,13 +85,24 @@ export const columns: ColumnDef<Payment>[] = [
 
       const updateUser =async (values : any) => {
         const userId = row.original.id
-        const updatedUser = await UpdateUserOrDeviceAction({data:values, apiPath:'users/update',type:'کاربر',id:userId})
+        const updatedUser = await UpdateUserOrDeviceAction({data:values, apiPath:'users/update/',type:'کاربر',id:userId})
         if (updatedUser.status === "error") {
           toast.error(updatedUser.message);
         } else if (updatedUser.status === "success") {
           toast.success(updatedUser.message);
         }
         return updatedUser
+      }
+
+      const toggleActivity =async () => {
+        const userId = row.original.id
+        const updatedUser = await ToggleUserActivity({id:userId})
+        if (updatedUser.status === "error") {
+          toast.error(updatedUser.message);
+        } else if (updatedUser.status === "success") {
+          toast.success(updatedUser.message);
+        }
+        return
       }
 
       return (
@@ -106,6 +122,15 @@ export const columns: ColumnDef<Payment>[] = [
                 </DropdownMenuItem>
               </DialogTrigger>
               <DropdownMenuSeparator />
+              
+              <DropdownMenuItem
+                className="text-red-700 bg-red-300/25"
+                onClick={toggleActivity}
+              >
+                فعال/غیر فعال
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              
               <DropdownMenuItem
                 className="text-red-700 bg-red-300/25"
                 onClick={deleteDevice}

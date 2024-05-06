@@ -24,13 +24,10 @@ import {
 } from "@/components/ui/dialog";
 
 import { ArrowUpDown } from "lucide-react";
-
+import GetToken from "@/app/auth/getToken";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-
-
-
 
 export type Devices = {
   id: string;
@@ -47,7 +44,8 @@ export type Devices = {
   waterSwitchOffAt: string;
   isSync: boolean;
 };
-
+import GetDevice from '@/app/devices/userAction/getDevice'
+import UserDevice from "../userDevice/page";
 export const columns: ColumnDef<Devices>[] = [
   {
     accessorKey: "id",
@@ -103,18 +101,55 @@ export const columns: ColumnDef<Devices>[] = [
   {
     accessorKey: "fanSwitchOnAt",
     header: "دما روشن شدن فن ها",
-},
-{
-  accessorKey: "fanSwitchOffAt",
-  header: "دما خاموش شدن فن ها",
-},
-{
-  accessorKey: "waterSwitchOffAt",
-  header: "رطوبت خاموش شدن شیر اب",
-},
+  },
+  {
+    accessorKey: "fanSwitchOffAt",
+    header: "دما خاموش شدن فن ها",
+  },
+  {
+    accessorKey: "waterSwitchOffAt",
+    header: "رطوبت خاموش شدن شیر اب",
+  },
   {
     id: "actions",
     cell: ({ row }) => {
+      const fetchDevice = async () => {
+        const result = await GetDevice(row.original.id);
+        console.log(result)
+        if(result.id){
+          // const newObject = {
+          //   identifier: result.identifier,
+          //   fan1: result.fanSwitch1,
+          //   fan2: result.fanSwitch2,
+          //   water1: result.waterSwitch1,
+          //   water2: result.waterSwitch2
+          // };
+          
+          return result
+        }
+        if(result.status) {
+          if(result.status === 'error'){
+            toast.error(result.message)
+            return
+
+          }else if(result.status === 'successs'){
+            toast.success(result.message)
+            return
+
+          }
+        }
+        toast.error('خطایی رخ داده است ، لطفا بعدا مجدد تلاش کنید')
+        return 'nothing'
+
+      };
+
+      let newObject = {
+
+      }
+
+
+
+
 
 
       return (
@@ -129,18 +164,16 @@ export const columns: ColumnDef<Devices>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>اقدامات</DropdownMenuLabel>
               <DialogTrigger asChild>
-                <DropdownMenuItem>
-                  ویرایش دستگاه
-                </DropdownMenuItem>
+                <DropdownMenuItem>ویرایش دستگاه</DropdownMenuItem>
               </DialogTrigger>
             </DropdownMenuContent>
           </DropdownMenu>
 
-
-          <DialogContent>
+          <DialogContent className="w-full max-w-md h-full md:h-auto md:max-w-xl overflow-y-auto">
             <DialogHeader>
               <DialogTitle>ویرایش دستگاه</DialogTitle>
             </DialogHeader>
+            <UserDevice value={fetchDevice}/>
           </DialogContent>
         </Dialog>
       );

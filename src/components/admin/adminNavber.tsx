@@ -18,12 +18,12 @@ import {
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { usePathname } from 'next/navigation';
 const AdminNvbar = () => {
   const [role, setUserRole] = useState("");
   const [login, setLoggin] = useState(false);
   const router = useRouter()
-
+  const currentPath = usePathname();
   useEffect(() => {
     async function getUserRole() {
       const userSession = await GetUserSession();
@@ -62,24 +62,24 @@ const AdminNvbar = () => {
       {role === "Admin" && (
         <div>
           <Link href="/admin">
-            <Button>داشبورد ادمین</Button>
+            <Button variant={currentPath === '/admin' ? 'default': 'ghost'}>داشبورد ادمین</Button>
           </Link>
 
           <Link href="/devices">
-            <Button variant="ghost">مدیریت دستگاها</Button>
+            <Button variant={currentPath === '/devices' ? 'default': 'ghost'}>مدیریت دستگاها</Button>
           </Link>
         </div>
       )}
       {role === "user" && (
         <div className="w-full h-12 flex gap-2 m-2">
           <Link href="/devices">
-            <Button>مدیریت دستگاها</Button>
+            <Button variant={currentPath === '/devices' ? 'default': 'ghost'}>مدیریت دستگاها</Button>
           </Link>
         </div>
       )}
       {role === "unAuth" && (
         <Link href="/login">
-          <Button>ورود</Button>
+          <Button variant={currentPath === '/login' ? 'default': 'ghost'}>ورود</Button>
         </Link>
       )}
 
