@@ -100,7 +100,9 @@ function Timer(props: Props) {
 
   return (
     <div>
+               <h3 className="mb-4 text-lg font-medium">تنظیم ساعت سنسور</h3>
       <div className="flex gap-5 justify-center  my-10">
+        
         <div>
           <label>ساعت روشن شدن</label>
           <TimePicker

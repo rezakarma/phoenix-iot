@@ -95,8 +95,8 @@ const Manual = (props: Props) => {
         className=" flex-row space-y-6 manual"
       >
         <div>
-          <h3 className="mb-4 text-lg font-medium">Email Notifications</h3>
-          <div className="space-y-4 flex gap-2 justify-evenly">
+        <h3 className="mb-4 text-lg font-medium">خاموش/روشن کردن سنسور</h3>
+          <div className=" grid grid-cols-2 gap-4 justify-evenly">
             <FormField
               control={form.control}
               name="switch1"
@@ -116,6 +116,7 @@ const Manual = (props: Props) => {
                 </FormItem>
               )}
             />
+            
             <FormField
               control={form.control}
               name="switch2"

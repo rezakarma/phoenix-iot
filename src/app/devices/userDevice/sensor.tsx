@@ -92,8 +92,8 @@ const Sensor = (props: Props) => {
         className=" flex-row space-y-6 manual"
       >
         <div>
-          <h3 className="mb-4 text-lg font-medium">Email Notifications</h3>
-          <div className="space-y-4 flex gap-10 justify-evenly">
+          <h3 className="mb-4 text-lg font-medium">تنظیم سنسور</h3>
+          <div className=" flex gap-10 justify-evenly">
             <FormField
               control={form.control}
               name="fanOnAtTemp"

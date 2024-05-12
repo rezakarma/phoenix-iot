@@ -169,7 +169,7 @@ export const columns: ColumnDef<Devices>[] = [
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <DialogContent className="w-full max-w-md h-full md:h-auto md:max-w-xl overflow-y-auto">
+          <DialogContent className="w-full max-w-md h-full md:h-auto md:max-w-xl">
             <DialogHeader>
               <DialogTitle>ویرایش دستگاه</DialogTitle>
             </DialogHeader>
