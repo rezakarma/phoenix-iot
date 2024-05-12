@@ -16,9 +16,10 @@ import { useEffect, useState } from "react";
 import Sensor from "./sensor";
 import Timer from "./timer";
 import CustomGaugeChart from "@/components/device/CustomGaugeChart";
+import { FadeLoader } from "react-spinners";
 const UserDevice = ({ value }) => {
   const [data, setData] = useState({
-    identifier: "",
+    identifier: "Loading...",
     switch1: false,
     switch2: false,
     switch3: false,
@@ -27,7 +28,7 @@ const UserDevice = ({ value }) => {
     switch2Name: "loading",
     switch3Name: "loading",
     switch4Name: "loading",
-    setting: "Manual",
+    setting: "Loading...",
     fanSwitchOnAt: 26,
     fanSwitchOffAt: 30,
     waterSwitchOffAt: 70,
@@ -91,7 +92,7 @@ const UserDevice = ({ value }) => {
           </SelectContent>
         </Select>
       </div> */}
-      <div>
+     {data.identifier !== "Loading..." && <div>
         <Tabs defaultValue="Manual" className="w-[100%]">
           <TabsList>
             <TabsTrigger value="Manual">دستی</TabsTrigger>
@@ -160,7 +161,13 @@ const UserDevice = ({ value }) => {
             </ScrollArea>
           </TabsContent>
         </Tabs>
+      </div>}
+      {data.identifier === "Loading..." && 
+      <div className="w-full h-[300px] flex flex-col justify-center items-center">
+      <FadeLoader color="#000000" />
+      <p className="text-md mt-2">...در حال بارگیری</p>
       </div>
+      }
     </div>
   );
 };

@@ -27,12 +27,24 @@
 
 // export default CustomGaugeChart;
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 
 import GaugeChart from 'react-gauge-chart';
 
 const CustomGaugeChart = ({value, min, max, name }) => {
   const calculatedValue = ((value - min) / (max - min)) * 100;
   return (
+
+
+    <Card className="flex justify-center items-center p-5">
     <div className="flex flex-col items-center w-[250px]">
       <GaugeChart
         id="gauge-chart"
@@ -49,8 +61,8 @@ const CustomGaugeChart = ({value, min, max, name }) => {
         // hideText={true}
         cornerRadius={50}
         formatTextValue={(val) => Math.round(val) + '%' }
-
-      />
+        
+        />
       <div className="flex justify-between w-[70%]">
         <div className="text-center">
           <p className="text-lg">{min}</p>
@@ -65,6 +77,7 @@ const CustomGaugeChart = ({value, min, max, name }) => {
       </div>
      
     </div>
+      </Card>
   );
 };
 
