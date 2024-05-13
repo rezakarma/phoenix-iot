@@ -6,10 +6,9 @@ import GetAllDevices from "../../adminActions/getAllDevices";
 async function getData(): Promise<any[]> {
   // Fetch data from your API here.
   const userToken = await GetToken();
-  const result =await GetAllDevices()
+  const response =await GetAllDevices()
 
-  if (result.ok) {
-    const response = await result.json();
+  
     if (response.items) {
 
         const modifiedData = response.items.map(obj => ({
@@ -24,7 +23,6 @@ async function getData(): Promise<any[]> {
 
       return modifiedData;
     }
-  }
   return [];
 }
 

@@ -5,14 +5,11 @@ import GetAllUsers from "../../adminActions/getAllUsers";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
-  const result = await GetAllUsers()
+  const response = await GetAllUsers()
 
-  if (result.ok) {
-    const response = await result.json();
     if (response.items) {
       return response.items;
     }
-  }
   return [];
 }
 
