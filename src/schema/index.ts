@@ -37,3 +37,8 @@ export const timerSchema = z.object({
 
 })
 
+export const AssignUserToDeviceSchema = z.object({
+  user: z.string(),
+  device: z.string()
+})
+

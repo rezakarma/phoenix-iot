@@ -21,12 +21,14 @@ import {
   } from "@/components/ui/navigation-menu"
 import AdminNvbar from "@/components/admin/adminNavber";
 import AdminSideBar from "@/components/admin/sidebar/adminSideBar";
-  
+import AssignUserToDevice from "./assignUserToDevice";
+
 
 const adminPage = () => {
     return ( 
         <>
-        <div className="w-full h-full">
+        <div className="w-full flex flex-col justify-start mt-4 items-center h-[90%]">
+          <AssignUserToDevice/>
         </div>
         {/* <div>
           <Menubar>

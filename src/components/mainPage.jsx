@@ -57,7 +57,7 @@ const MainPage = () => {
             <Button>مدیریت دستگاه ها</Button>
             </Link>
             <span className='font-bold text-black text-3xl'>و همچنین برای مدیریت کاربران و دستگاه ها میتوانید وارد بخش داشیورد ادمینی شوید</span>
-            <Link href='/devices'>
+            <Link href='/admin'>
             <Button>داشبورد ادمین</Button>
             </Link>
         </div>

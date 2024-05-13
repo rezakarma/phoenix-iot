@@ -1,18 +1,12 @@
 import GetToken from "@/app/auth/getToken";
 import { Devices, columns } from "./columns";
 import { DataTable } from "@/components/admin/tableData/data-table";
+import GetAllDevices from "../../adminActions/getAllDevices";
 
 async function getData(): Promise<any[]> {
   // Fetch data from your API here.
   const userToken = await GetToken();
-  const result = await fetch(
-    `${process.env.API_ENDPOINT}/device/all-devices`,
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    }
-  );
+  const result =await GetAllDevices()
 
   if (result.ok) {
     const response = await result.json();

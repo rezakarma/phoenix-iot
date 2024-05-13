@@ -7,11 +7,12 @@ import { number } from 'zod';
 const menuItem = [
     {title:'مدیریت کاربران', href:'/admin/manage-users'},
     {title:'مدیریت دستگاها', href:'/admin/manage-device'},
+    {title:'متصل کردن کاربر به دستگاه', href:'/admin'},
 ]
 
 const AdminSideBar = () => {
     
-  const [activeItem, setActiveItem] = useState(1);
+  const [activeItem, setActiveItem] = useState(2);
 
   const handleItemClick = (itemId: number) => {
     setActiveItem(itemId);
