@@ -47,7 +47,10 @@ export type Devices = {
 import GetDevice from '@/app/devices/userAction/getDevice'
 import UserDevice from "../userDevice/page";
 export const columns: ColumnDef<Devices>[] = [
-
+  {
+    accessorKey: "id",
+    header: "id",
+  },
   {
     accessorKey: "identifier",
     header: ({ column }) => {

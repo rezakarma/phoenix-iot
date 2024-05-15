@@ -17,8 +17,10 @@ import Sensor from "./sensor";
 import Timer from "./timer";
 import CustomGaugeChart from "@/components/device/CustomGaugeChart";
 import { FadeLoader } from "react-spinners";
+import useSignalR from "@/hook/useSignalR";
 const UserDevice = ({ value }) => {
   const [data, setData] = useState({
+    id:'',
     identifier: "Loading...",
     switch1: false,
     switch2: false,
@@ -59,20 +61,81 @@ const UserDevice = ({ value }) => {
     val20: '{"name":"temp","value":"0","max":"20","min":"0"}',
     isSync: false,
   });
+  const [gageValues,setGageValues]= useState({
+    id:'',
+    isSync: false,
+    setting: "Loading...",
+    identifier: "Loading...",
+    val1: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val2: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val3: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val4: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val5: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val6: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val7: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val8: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val9: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val10: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val11: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val12: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val13: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val14: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val15: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val16: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val17: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val18: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val19: '{"name":"temp","value":"0","max":"20","min":"0"}',
+    val20: '{"name":"temp","value":"0","max":"20","min":"0"}',
+  })
+
+  useEffect(()=> {
+    console.log(data)
+  },[data])
   useEffect(() => {
     const test = async () => {
       const data = await value();
       console.log("heree: ", data);
       setData(data);
+      setGageValues({
+        id:data.id,
+        identifier:data.identifier,
+        isSync:data.isSync,
+        setting:data.setting,
+        val1: data.val1,
+        val2: data.val2,
+        val3: data.val3,
+        val4: data.val4,
+        val5: data.val5,
+        val6: data.val6,
+        val7: data.val7,
+        val8: data.val8,
+        val9: data.val9,
+        val10: data.val10,
+        val11: data.val11,
+        val12: data.val2,
+        val13: data.val3,
+        val14: data.val4,
+        val15: data.val5,
+        val16: data.val6,
+        val17: data.val17,
+        val18: data.val18,
+        val19: data.val19,
+        val20: data.val20,
+      })
     };
     test();
-  }, [value]);
+  }, []);
+  const connection = useSignalR((updatedData) => {
+    setGageValues((prevDevices) =>
+      prevDevices.id === updatedData.id ? updatedData : prevDevices
+    );
+  });
   return (
     <div className="flex flex-col w-full h-full gap-5 manual ltr">
       <div className="w-full flex gap-2 justify-end">
-        <Badge className="p-2 font-semibold">id: {data.identifier}</Badge>
-        <Badge>sync: {data.isSync.toString()}</Badge>
-        <Badge>mode: {data.setting}</Badge>
+        <Badge className="p-2 font-semibold">id: {gageValues.identifier}</Badge>
+        <Badge>sync: {gageValues.isSync.toString()}</Badge>
+        <Badge>mode: {gageValues.setting}</Badge>
       </div>
       {/* <div className="flex flex-col gap-5">
         <span className="text-lx">حالت دستگاه:</span>
@@ -96,9 +159,9 @@ const UserDevice = ({ value }) => {
         <Tabs defaultValue="Manual" className="w-[100%]">
           <TabsList>
             <TabsTrigger value="Manual">دستی</TabsTrigger>
-            <TabsTrigger value="Sensor">سنسنور</TabsTrigger>
+            <TabsTrigger value="Sensor">سنسور</TabsTrigger>
             <TabsTrigger value="Timer">تایمر</TabsTrigger>
-            <TabsTrigger value="Values">values</TabsTrigger>
+            <TabsTrigger value="Values">مقادیر</TabsTrigger>
           </TabsList>
           <TabsContent value="Manual">
             <Manual
@@ -137,26 +200,26 @@ const UserDevice = ({ value }) => {
           <TabsContent value="Values">
             <ScrollArea className="h-[500px] w-full rounded-md border p-4 ">
               <div className="grid grid-cols-2 gap-4">
-                <CustomGaugeChart {...JSON.parse(data.val1)} />
-                <CustomGaugeChart {...JSON.parse(data.val2)} />
-                <CustomGaugeChart {...JSON.parse(data.val3)} />
-                <CustomGaugeChart {...JSON.parse(data.val4)} />
-                <CustomGaugeChart {...JSON.parse(data.val5)} />
-                <CustomGaugeChart {...JSON.parse(data.val6)} />
-                <CustomGaugeChart {...JSON.parse(data.val7)} />
-                <CustomGaugeChart {...JSON.parse(data.val8)} />
-                <CustomGaugeChart {...JSON.parse(data.val9)} />
-                <CustomGaugeChart {...JSON.parse(data.val10)} />
-                <CustomGaugeChart {...JSON.parse(data.val11)} />
-                <CustomGaugeChart {...JSON.parse(data.val12)} />
-                <CustomGaugeChart {...JSON.parse(data.val13)} />
-                <CustomGaugeChart {...JSON.parse(data.val14)} />
-                <CustomGaugeChart {...JSON.parse(data.val15)} />
-                <CustomGaugeChart {...JSON.parse(data.val16)} />
-                <CustomGaugeChart {...JSON.parse(data.val17)} />
-                <CustomGaugeChart {...JSON.parse(data.val18)} />
-                <CustomGaugeChart {...JSON.parse(data.val19)} />
-                <CustomGaugeChart {...JSON.parse(data.val20)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val1)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val2)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val3)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val4)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val5)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val6)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val7)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val8)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val9)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val10)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val11)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val12)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val13)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val14)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val15)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val16)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val17)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val18)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val19)} />
+                <CustomGaugeChart {...JSON.parse(gageValues.val20)} />
               </div>
             </ScrollArea>
           </TabsContent>

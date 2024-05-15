@@ -108,7 +108,7 @@ const LoginPage = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="نام کاربری" {...field} />
               </FormControl>
               <FormDescription>
               </FormDescription>
@@ -123,7 +123,7 @@ const LoginPage = () => {
             <FormItem>
               <FormLabel>password</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" type='password' {...field} />
+                <Input placeholder="رمز عبور" type='password' {...field} />
               </FormControl>
               <FormDescription>
               </FormDescription>

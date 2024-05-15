@@ -60,6 +60,9 @@ const CustomGaugeChart = ({value, min, max, name }) => {
         needleScale={0.55}
         // hideText={true}
         cornerRadius={50}
+        // animate={false}
+        animDelay={10}
+        animateDuration={500}
         formatTextValue={(val) => Math.round(val) + '%' }
         
         />

@@ -49,7 +49,7 @@ function Timer(props: Props) {
     setStartTime(startWorkAt);
     const endWorkAt = props.value.endWorkAt.slice(0, -3);
     setEndTime(endWorkAt);
-  }, [props.value]);
+  }, []);
 
   // const form = useForm<z.infer<typeof timerSchema>>({
   //   resolver: zodResolver(timerSchema),
@@ -106,6 +106,7 @@ function Timer(props: Props) {
         <div>
           <label>ساعت روشن شدن</label>
           <TimePicker
+          className='rounded-2xl'
             onChange={(date) => setStartTime(date)}
             value={startTime}
           />

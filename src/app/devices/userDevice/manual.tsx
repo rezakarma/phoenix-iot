@@ -42,7 +42,7 @@ const Manual = (props: Props) => {
     form.setValue("switch2", props.value.switch2);
     form.setValue("switch3", props.value.switch3);
     form.setValue("switch4", props.value.switch4);
-  }, [props.value]);
+  }, []);
 
   const form = useForm<z.infer<typeof manualSchema>>({
     resolver: zodResolver(manualSchema),

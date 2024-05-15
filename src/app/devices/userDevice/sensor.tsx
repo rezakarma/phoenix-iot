@@ -41,7 +41,7 @@ const Sensor = (props: Props) => {
       props.value.fanSwitchOffAt.toString()
     );
     console.log("props", props.value);
-  }, [props.value]);
+  }, []);
 
   const form = useForm<z.infer<typeof sensorSchema>>({
     resolver: zodResolver(sensorSchema),
