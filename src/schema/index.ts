@@ -25,9 +25,10 @@ export const manualSchema = z.object({
 
 export const sensorSchema = z.object({
   identifier:	z.string(),
-  fanOnAtTemp: z.string(),
-  fanOffAtTemp: z.string(),
-  waterOffFromHumidity: z.string()
+  whetherHumidityLimit: z.string(),
+  whetherTemperatureLimit: z.string(),
+  soilHumidityLimit: z.string(),
+  lightBrightnessLimit: z.string()
 })
 
 export const timerSchema = z.object({

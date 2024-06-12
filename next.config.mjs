@@ -2,6 +2,7 @@
 const nextConfig = {
     env: {
         API_ENDPOINT: 'https://phoenix.liara.run',
+        WEBSOCKET_ENDPOINT: 'wss://phoenix.liara.run/hub/update-device-notification',
         APP_MODE:"production"
       },
       typescript: {

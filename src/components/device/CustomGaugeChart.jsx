@@ -63,7 +63,7 @@ const CustomGaugeChart = ({value, min, max, name }) => {
         // animate={false}
         animDelay={10}
         animateDuration={500}
-        formatTextValue={(val) => Math.round(val) + '%' }
+        formatTextValue={(val) => value }
         
         />
       <div className="flex justify-between w-[70%]">

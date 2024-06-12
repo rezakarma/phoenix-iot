@@ -33,18 +33,24 @@ export type Devices = {
   id: string;
   identifier: string;
   setting: string;
-  temperature: string;
-  humidity: string;
-  fanSwitch1: boolean;
-  fanSwitch2: boolean;
-  waterSwitch1: boolean;
-  waterSwitch2: boolean;
-  fanSwitchOnAt: number;
-  fanSwitchOffAt: number;
-  waterSwitchOffAt: string;
+
+  whetherTemperature: string;
+  whetherHumidity: string;
+  soilHumidity: string;
+  lightBrightness: string;
+
+  whetherHumidityLimit: number;
+  whetherTemperatureLimit: number;
+  soilHumidityLimit: number;
+  lightBrightnessLimit: number;
+
+  switch1: boolean;
+  switch2: boolean;
+  switch3: boolean;
+  switch4: boolean;
   isSync: boolean;
 };
-import GetDevice from '@/app/devices/userAction/getDevice'
+import GetDevice from "@/app/devices/userAction/getDevice";
 import UserDevice from "../userDevice/page";
 export const columns: ColumnDef<Devices>[] = [
   {
@@ -70,52 +76,64 @@ export const columns: ColumnDef<Devices>[] = [
     header: "نوع تظیم",
   },
   {
-    accessorKey: "temperature",
-    header: "دما",
+    accessorKey: "whetherTemperature",
+    header: "دمای هوا",
   },
   {
-    accessorKey: "humidity",
-    header: "رطوبت",
+    accessorKey: "whetherHumidity",
+    header: "رطوبت هوا",
+  },
+  {
+    accessorKey: "soilHumidity",
+    header: "رطوبت خاک",
+  },
+  {
+    accessorKey: "lightBrightness",
+    header: "مقدار روشنایی",
   },
   {
     accessorKey: "isSync",
     header: "isSync",
   },
   {
-    accessorKey: "fanSwitch1",
-    header: "فن 1",
+    accessorKey: "switch1",
+    header: "1 سوییچ",
   },
   {
-    accessorKey: "fanSwitch2",
-    header: "فن 2",
+    accessorKey: "switch2",
+    header: "سوییچ 2",
   },
   {
-    accessorKey: "waterSwitch1",
-    header: "شیر اب 1",
+    accessorKey: "switch3",
+    header: "سوییچ 3",
   },
   {
-    accessorKey: "waterSwitch2",
-    header: "شیر اب 2",
+    accessorKey: "switch4",
+    header: "سوییچ 4",
   },
   {
-    accessorKey: "fanSwitchOnAt",
-    header: "دما روشن شدن فن ها",
+    accessorKey: "whetherHumidityLimit",
+    header: "محدود رطوبت هوا",
   },
   {
-    accessorKey: "fanSwitchOffAt",
-    header: "دما خاموش شدن فن ها",
+    accessorKey: "whetherTemperatureLimit",
+    header: "محدودیت دما هوا",
   },
   {
-    accessorKey: "waterSwitchOffAt",
-    header: "رطوبت خاموش شدن شیر اب",
+    accessorKey: "soilHumidityLimit",
+    header: "محدودیت رطوبت خاک",
+  },
+  {
+    accessorKey: "lightBrightnessLimit",
+    header: "محدودیت نور",
   },
   {
     id: "actions",
     cell: ({ row }) => {
       const fetchDevice = async () => {
         const result = await GetDevice(row.original.id);
-        console.log(result)
-        if(result.id){
+        console.log(result);
+        if (result.id) {
           // const newObject = {
           //   identifier: result.identifier,
           //   fan1: result.fanSwitch1,
@@ -123,33 +141,23 @@ export const columns: ColumnDef<Devices>[] = [
           //   water1: result.waterSwitch1,
           //   water2: result.waterSwitch2
           // };
-          
-          return result
+
+          return result;
         }
-        if(result.status) {
-          if(result.status === 'error'){
-            toast.error(result.message)
-            return
-
-          }else if(result.status === 'successs'){
-            toast.success(result.message)
-            return
-
+        if (result.status) {
+          if (result.status === "error") {
+            toast.error(result.message);
+            return;
+          } else if (result.status === "successs") {
+            toast.success(result.message);
+            return;
           }
         }
-        toast.error('خطایی رخ داده است ، لطفا بعدا مجدد تلاش کنید')
-        return 'nothing'
-
+        toast.error("خطایی رخ داده است ، لطفا بعدا مجدد تلاش کنید");
+        return "nothing";
       };
 
-      let newObject = {
-
-      }
-
-
-
-
-
+      let newObject = {};
 
       return (
         <Dialog>
@@ -168,11 +176,11 @@ export const columns: ColumnDef<Devices>[] = [
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <DialogContent className="w-full max-w-md h-full md:h-auto md:max-w-xl">
+          <DialogContent className="w-full max-w-md h-[70%] overflow-y-auto md:max-w-xl">
             <DialogHeader>
               <DialogTitle>ویرایش دستگاه</DialogTitle>
             </DialogHeader>
-            <UserDevice value={fetchDevice}/>
+            <UserDevice value={fetchDevice} />
           </DialogContent>
         </Dialog>
       );

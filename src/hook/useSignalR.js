@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import GetToken from "@/app/auth/getToken";
 import * as signalR from "@microsoft/signalr";
 
-const url = "wss://phoenix.liara.run/hub/update-device-notification";
+const url = `${process.env.WEBSOCKET_ENDPOINT}`;
 
 const useSignalR = (onDeviceUpdated) => {
   const [connection, setConnection] = useState(null);
@@ -40,15 +40,15 @@ const useSignalR = (onDeviceUpdated) => {
     createConnection();
   }, []);
 
-  useEffect(() => {
-    if (connection && connectionStatus === "connected") {
-      return () => {
-        connection.stop();
-        setConnection(null);
-        setConnectionStatus("disconnected");
-      };
-    }
-  }, [connection, connectionStatus]);
+  // useEffect(() => {
+  //   if (connection && connectionStatus === "connected") {
+  //     return () => {
+  //       connection.stop();
+  //       setConnection(null);
+  //       setConnectionStatus("disconnected");
+  //     };
+  //   }
+  // }, [connection, connectionStatus]);
 
   return connection;
 };

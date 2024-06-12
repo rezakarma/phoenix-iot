@@ -32,13 +32,15 @@ import ToggleUserActivity from "../../adminActions/toggleUserActivity";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
+export type User = {
   id: string;
+  isActive: boolean;
   username: string;
+  role: string;
   createdAt: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "id",
     header: "شناسه",
@@ -63,6 +65,10 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
   {
+    accessorKey: "role",
+    header: "role",
+  },
+  {
     accessorKey: "createdAt",
     header: "تاریخ ایجاد",
   },
@@ -83,27 +89,32 @@ export const columns: ColumnDef<Payment>[] = [
         }
       };
 
-      const updateUser =async (values : any) => {
-        const userId = row.original.id
-        const updatedUser = await UpdateUserOrDeviceAction({data:values, apiPath:'users/update/',type:'کاربر',id:userId})
+      const updateUser = async (values: any) => {
+        const userId = row.original.id;
+        const updatedUser = await UpdateUserOrDeviceAction({
+          data: values,
+          apiPath: "users/update/",
+          type: "کاربر",
+          id: userId,
+        });
         if (updatedUser.status === "error") {
           toast.error(updatedUser.message);
         } else if (updatedUser.status === "success") {
           toast.success(updatedUser.message);
         }
-        return updatedUser
-      }
+        return updatedUser;
+      };
 
-      const toggleActivity =async () => {
-        const userId = row.original.id
-        const updatedUser = await ToggleUserActivity({id:userId})
+      const toggleActivity = async () => {
+        const userId = row.original.id;
+        const updatedUser = await ToggleUserActivity({ id: userId });
         if (updatedUser.status === "error") {
           toast.error(updatedUser.message);
         } else if (updatedUser.status === "success") {
           toast.success(updatedUser.message);
         }
-        return
-      }
+        return;
+      };
 
       return (
         <Dialog>
@@ -116,13 +127,13 @@ export const columns: ColumnDef<Payment>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>اقدامات</DropdownMenuLabel>
-              <DialogTrigger asChild>
-                <DropdownMenuItem>
-                  ویرایش کاربر
-                </DropdownMenuItem>
-              </DialogTrigger>
+            
+                <DialogTrigger asChild>
+                  <DropdownMenuItem>ویرایش کاربر</DropdownMenuItem>
+                </DialogTrigger>
+   
               <DropdownMenuSeparator />
-              
+
               <DropdownMenuItem
                 className="text-red-700 bg-red-300/25"
                 onClick={toggleActivity}
@@ -130,22 +141,22 @@ export const columns: ColumnDef<Payment>[] = [
                 فعال/غیر فعال
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              
+              {row.original.role !== "Admin" && (
               <DropdownMenuItem
                 className="text-red-700 bg-red-300/25"
                 onClick={deleteDevice}
               >
                 حذف کاربر
               </DropdownMenuItem>
+                         )}
             </DropdownMenuContent>
           </DropdownMenu>
 
           <DialogContent>
             <DialogHeader>
               <DialogTitle>ویرایش کاربر</DialogTitle>
-              
             </DialogHeader>
-            <UpdateUserForm onSubmit={updateUser}/>
+            <UpdateUserForm onSubmit={updateUser} />
           </DialogContent>
         </Dialog>
       );

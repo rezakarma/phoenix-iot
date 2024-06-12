@@ -1,5 +1,5 @@
 "use client";
-import { Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { sensorSchema } from "@/schema/index";
@@ -22,9 +22,10 @@ import { toast } from "sonner";
 interface Props {
   value: {
     identifier: string;
-    fanSwitchOnAt: number;
-    fanSwitchOffAt: number;
-    waterSwitchOffAt: number;
+    whetherHumidityLimit: number;
+    whetherTemperatureLimit: number;
+    soilHumidityLimit: number;
+    lightBrightnessLimit: number;
   };
 }
 
@@ -34,11 +35,21 @@ const Sensor = (props: Props) => {
   useEffect(() => {
     // setValue('switch1', props.value.switch1)
     form.setValue("identifier", props.value.identifier);
-    form.setValue("fanOnAtTemp", props.value.fanSwitchOnAt.toString());
-    form.setValue("fanOffAtTemp", props.value.fanSwitchOffAt.toString());
     form.setValue(
-      "waterOffFromHumidity",
-      props.value.fanSwitchOffAt.toString()
+      "whetherHumidityLimit",
+      props.value.whetherHumidityLimit.toString()
+    );
+    form.setValue(
+      "whetherTemperatureLimit",
+      props.value.whetherTemperatureLimit.toString()
+    );
+    form.setValue(
+      "soilHumidityLimit",
+      props.value.soilHumidityLimit.toString()
+    );
+    form.setValue(
+      "lightBrightnessLimit",
+      props.value.lightBrightnessLimit.toString()
     );
     console.log("props", props.value);
   }, []);
@@ -47,9 +58,10 @@ const Sensor = (props: Props) => {
     resolver: zodResolver(sensorSchema),
     defaultValues: {
       identifier: props.value.identifier,
-      fanOnAtTemp: props.value.fanSwitchOnAt.toString(),
-      fanOffAtTemp: props.value.fanSwitchOffAt.toString(),
-      waterOffFromHumidity: props.value.waterSwitchOffAt.toString(),
+      whetherHumidityLimit: props.value.whetherHumidityLimit.toString(),
+      whetherTemperatureLimit: props.value.whetherTemperatureLimit.toString(),
+      soilHumidityLimit: props.value.soilHumidityLimit.toString(),
+      lightBrightnessLimit: props.value.lightBrightnessLimit.toString(),
     },
   });
 
@@ -65,9 +77,10 @@ const Sensor = (props: Props) => {
         },
         body: JSON.stringify({
           identifier: value.identifier,
-          fanOnAtTemp: +value.fanOnAtTemp,
-          fanOffAtTemp: +value.fanOffAtTemp,
-          waterOffFromHumidity: +value.waterOffFromHumidity,
+          whetherHumidityLimit: +value.whetherHumidityLimit,
+          whetherTemperatureLimit: +value.whetherTemperatureLimit,
+          soilHumidityLimit: +value.soilHumidityLimit,
+          lightBrightnessLimit: +value.lightBrightnessLimit,
         }),
       }
     );
@@ -96,12 +109,12 @@ const Sensor = (props: Props) => {
           <div className=" flex gap-10 justify-evenly">
             <FormField
               control={form.control}
-              name="fanOnAtTemp"
+              name="whetherHumidityLimit"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "روشن شدن فن در دمای" : "loading..."}
+                      {props.value ? "روشن شدن فن در رطوبت" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -112,7 +125,7 @@ const Sensor = (props: Props) => {
             />
             <FormField
               control={form.control}
-              name="fanOffAtTemp"
+              name="whetherTemperatureLimit"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
@@ -128,12 +141,28 @@ const Sensor = (props: Props) => {
             />
             <FormField
               control={form.control}
-              name="waterOffFromHumidity"
+              name="soilHumidityLimit"
               render={({ field }) => (
                 <FormItem className="flex flex-col  items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "خاموش شدن شیر آب در دمای" : "loading..."}
+                      {props.value ? "خاموش شدن شیر آب در رطوبت" : "loading..."}
+                    </FormLabel>
+                  </div>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lightBrightnessLimit"
+              render={({ field }) => (
+                <FormItem className="flex flex-col  items-center gap-5 rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      {props.value ? "خاموش شدن لامپ در نور" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -145,8 +174,8 @@ const Sensor = (props: Props) => {
           </div>
         </div>
         <Button type="submit" disabled={isPending}>
-         {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {isPending ?'Please wait': 'Submit'}
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isPending ? "Please wait" : "Submit"}
         </Button>
       </form>
     </Form>

@@ -67,10 +67,10 @@ const Manual = (props: Props) => {
         },
         body: JSON.stringify({
           identifier: value.identifier,
-          fan1: value.switch1,
-          fan2: value.switch2,
-          water1: value.switch3,
-          water2: value.switch4,
+          relay1: value.switch1,
+          relay2: value.switch2,
+          relay3: value.switch3,
+          relay4: value.switch4,
         }),
       }
     );
