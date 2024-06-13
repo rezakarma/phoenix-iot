@@ -114,7 +114,7 @@ const Sensor = (props: Props) => {
                 <FormItem className="flex flex-col items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "روشن شدن فن در رطوبت" : "loading..."}
+                      {props.value ? "محدودیت رطوبت هوا" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -130,7 +130,7 @@ const Sensor = (props: Props) => {
                 <FormItem className="flex flex-col items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "خاموش شدن فن در دمای" : "loading..."}
+                      {props.value ? "محدودیت دمای هوا" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -146,7 +146,7 @@ const Sensor = (props: Props) => {
                 <FormItem className="flex flex-col  items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "خاموش شدن شیر آب در رطوبت" : "loading..."}
+                      {props.value ? "محدودیت رطوبت خاک" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -162,7 +162,7 @@ const Sensor = (props: Props) => {
                 <FormItem className="flex flex-col  items-center gap-5 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">
-                      {props.value ? "خاموش شدن لامپ در نور" : "loading..."}
+                      {props.value ? "محدودیت شدت روشنایی" : "loading..."}
                     </FormLabel>
                   </div>
                   <FormControl>
